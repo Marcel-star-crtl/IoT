@@ -1,0 +1,112 @@
+MDNavigationLayout:
+    orientation: 'vertical'
+
+    MDScreenManager:
+        MDScreen:
+            name: 'HomePage'
+            MDBoxLayout:
+                orientation: 'vertical'
+
+                MDTopAppBar:
+                    title: 'Home Remote'
+                    # replaced '.nav_drawer()' with '.set_state('toggle')
+                    left_action_items: [['menu', lambda x: nav_drawer.set_state('toggle')]]
+                    elevation: 20
+                    opposite_colors: True
+
+                ScrollView:
+                    MDGridLayout:
+                        rows: 3
+                        padding: '20dp'
+
+                        ScrollView:
+                            MDGridLayout:
+                                rows: 1
+
+                                MDLabel:
+                                    text: 'Favourites'
+                                    valign: 'top'
+
+                        ScrollView:
+                            MDGridLayout:
+                                rows: 1
+
+                                MDLabel:
+                                    text: 'Recents'
+
+                        ScrollView:
+                            MDGridLayout:
+                                rows: 1
+
+                                MDLabel:
+                                    text: 'New'
+
+        MDScreen:
+            name: 'DevicePage'
+            MDBoxLayout:
+                orientation: 'vertical'
+
+                MDTopAppBar:
+                    title: 'DEVICES'
+                    # replaced '.nav_drawer()' with '.set_state('toggle')
+                    left_action_items: [['menu', lambda x: nav_drawer.set_state('open')]]
+                    elevation: 20
+                    opposite_colors: True
+
+                ScrollView:
+                    id: 'device_scr'
+
+                    MDList:
+                        OneLineIconListItem:
+                            on_press:
+                            text: 'Add New Device'
+                            IconLeftWidget:
+                                icon: 'plus'
+
+    MDNavigationDrawer:
+        id: nav_drawer
+        MDBoxLayout:
+            orientation: 'vertical'
+
+            Image:
+                source: 'assets/images/remote.jpg'
+                size_hint: (0.3, 0.3)
+
+            MDLabel:
+                text: 'Remote Devices'
+                halign: 'left'
+                size_hint_y: None
+                font_style: 'H6'
+                height: self.texture_size[1]
+
+            ScrollView:
+                MDList:
+                    OneLineIconListItem:
+                        on_press: nav_drawer.set_state('close')
+                        on_press: root._screen_manager.current = 'HomePage'
+                        text: 'Home'
+                        IconLeftWidget:
+                            icon: 'home'
+
+                    OneLineIconListItem:
+                        text: 'Remote'
+                        IconLeftWidget:
+                            icon: 'remote'
+
+                    OneLineIconListItem:
+                        on_press: nav_drawer.set_state('close')
+                        on_press: root._screen_manager.current = 'DevicePage'
+                        text: 'Devices'
+                        IconLeftWidget:
+                            icon: 'devices'
+
+
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+
+                MDIcon:
+                    icon: 'account-circle'
+
+                MDIcon:
+                    icon: 'brightness-7'
